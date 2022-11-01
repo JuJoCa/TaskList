@@ -17,7 +17,10 @@ const TaskListComponent = () => {
     //Control del componente
     useEffect(() => {
         console.log('Task state has been modified');
-        setloading(false);
+        setTimeout(() => {
+            setloading(false);
+        }, 2000);
+        
         return () => {
             console.log('TaskList component is going to unmount...');
         };
@@ -97,11 +100,16 @@ const TaskListComponent = () => {
                         <h5>Your Task:</h5>
                     </div>
                     <div className='card-body' data-mdb-perfect-scrollbar='true' style={{position: 'relative', height: '400px' }}>
-                        { tasksTable }
+                        { loading ? 
+                        (
+                            <div class="spinner-border" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                        ) : tasksTable }
                     </div>
                </div>
             </div>
-            <TaskForm add={addTask}></TaskForm> 
+            <TaskForm add={addTask} length={tasks.length}></TaskForm> 
         </div>
     );
 };
